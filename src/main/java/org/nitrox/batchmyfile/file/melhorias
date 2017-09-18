@@ -5,8 +5,6 @@ ex:
 @LayoutField("DATA_COMPENSACAO")
 public Date dataCompensacao;
 
+- Criada a anottation, falta o handler
 
-2. Usar Functions do java 8 na configuração para dizer como processar algumas coisas, 
-tipo Data em um formato diferente, decimal com ponto ou sem ponto, hora, etc.
-
-3. Definir uma forma dinâmica de colocar os valores possíveis no TypeFileDescriptor
+2. Definir uma forma dinâmica de colocar os valores possíveis no TypeFileDescriptor

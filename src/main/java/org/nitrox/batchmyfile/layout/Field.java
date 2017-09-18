@@ -5,6 +5,9 @@
  */
 package org.nitrox.batchmyfile.layout;
 
+import org.nitrox.batchmyfile.dataType.DataType;
+import org.nitrox.batchmyfile.file.FilePartType;
+
 /**
  *
  * @author 03883182443
@@ -17,9 +20,9 @@ public interface Field {
     
     public String getAtributeName();
     
-    public FieldType getType();
+    public DataType getDataType();
     
-    public void getPartFile();
+    public FilePartType getPartFile();
     
     public boolean isObligatory();
     

@@ -6,6 +6,8 @@
 package org.nitrox.batchmyfile.layout;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import org.nitrox.batchmyfile.file.FilePartType;
 
 /**
@@ -14,11 +16,17 @@ import org.nitrox.batchmyfile.file.FilePartType;
  */
 public interface Layout {
 
-    public Field[] getFields();
+    public List<Field> getFields();
 
-    List<Field> getFieldsByFilePartType(FilePartType filePartType);
+    public default List<Field> getFieldsByFilePartType(FilePartType filePartType) {
+        List<Field> fieldsByFilePart = getFields().stream().filter(field
+                -> field.getPartFile().equals(filePartType)).collect(Collectors.toList());
+        return fieldsByFilePart;
+    }
 
-    public Field getFieldByDescription();
+    public default Optional<Field> getFieldByName(String name) {
+        return getFields().stream().filter(field -> field.getName().equals(name)).findFirst();
+    }    
 
     public default int getLineSizeByFilePartType(FilePartType filePartType) {
         List<Field> fields = getFieldsByFilePartType(filePartType);

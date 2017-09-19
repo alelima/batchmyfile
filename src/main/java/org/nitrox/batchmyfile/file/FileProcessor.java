@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 import org.nitrox.batchmyfile.layout.Field;
+import org.nitrox.batchmyfile.layout.Layout;
 
 /**
  *
@@ -20,11 +21,11 @@ import org.nitrox.batchmyfile.layout.Field;
  */
 public class FileProcessor {
 
-    public List<Map<String, Object>> process(File file, Field partFileDescriptorField) {
+    public List<Map<String, Object>> process(File file, Layout layout) {
 
         List<Map<String, Object>> valoresArquivo = new ArrayList<>();
         try {
-            importaInformacoesArquivo(file, valoresArquivo, partFileDescriptorField);
+            importaInformacoesArquivo(file, valoresArquivo, layout);
         } catch (IOException e) {
             // TODO: Gerar Exceção aqui depois
             e.printStackTrace();
@@ -32,10 +33,11 @@ public class FileProcessor {
         return valoresArquivo;
     }
 
-    private void importaInformacoesArquivo(File arquivo, List<Map<String, Object>> valoresArquivo, Field partFileDescriptorField) throws IOException {
+    private void importaInformacoesArquivo(File arquivo, List<Map<String, Object>> valoresArquivo, Layout layout) throws IOException {
 
         LineIterator linhas;
         linhas = FileUtils.lineIterator(arquivo, "UTF-8");
+        Field partFileDescriptorField = layout.getPartFileDescriptorField();
         while (linhas.hasNext()) {
             String linha = linhas.next();
 

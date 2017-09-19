@@ -51,13 +51,13 @@ public class FileLineProcessor {
     public Map<String, Object> getLineFieldsValues(List<Field> fields) {
         this.cursor = START_OF_LINE;
         LinkedHashMap<String, Object> fieldValues = new LinkedHashMap<>();
-        fields.forEach(field -> fieldValues.put(field.getAtributeName(), this.getFieldValue(field)));
+        fields.forEach(field -> fieldValues.put(field.getName(), this.getFieldValue(field)));
         return fieldValues;
     }
 
     public Map<String, Object> getFieldsLineValues(Field partFileDescriptorField) {
         String partFileDescriptorValue = this.getFieldValue(partFileDescriptorField).toString();
-        FilePartType filePartType = FilePartType.getFilePartTypebyValue(partFileDescriptorValue);
+        FilePartType filePartType = FilePartType.getFilePartTypeByValue(partFileDescriptorValue);
         Layout layout = partFileDescriptorField.getLayout();
         fillLineIfSmallerThanTotalSize(partFileDescriptorField, filePartType);
         return getLineValues(layout, filePartType);

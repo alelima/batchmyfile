@@ -41,21 +41,5 @@ public class ReflectionUtil {
         } finally {
             campo.setAccessible(acessivel);
         }
-    }
-    
-    public static void preencheAtributo(String nomeCampo, Object objeto, Object valor) {		
-        for (Field campo : obterCampos(objeto.getClass())) {
-            boolean acessivel = campo.isAccessible();
-            try {
-            	campo.setAccessible(true);
-            	if(campo.getName().equals(nomeCampo)) {
-            		campo.set(objeto, valor);
-            	} 
-            } catch (RuntimeException | IllegalAccessException e) {
-                // ignora
-            } finally {
-                campo.setAccessible(acessivel);
-            }
-        }
-    }
+    }    
 }

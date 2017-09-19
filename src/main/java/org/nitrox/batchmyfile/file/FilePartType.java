@@ -15,7 +15,7 @@ public enum FilePartType {
     TRAILLER, 
     PART_DESCRIPTOR;
     
-    public static FilePartType getFilePartTypebyValue(
+    public static FilePartType getFilePartTypeByValue(
 			String valorTipo) {
 		FilePartType[] tipos = values();
 		for (int i = 0; i < tipos.length; i++) {
@@ -29,7 +29,7 @@ public enum FilePartType {
 	}
     
     public static boolean isValueValid(String valorTipo) {
-		if(getFilePartTypebyValue(valorTipo) == null) {
+		if(getFilePartTypeByValue(valorTipo) == null) {
 			return false;
 		}
 		return true;

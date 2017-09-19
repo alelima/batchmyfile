@@ -7,6 +7,8 @@ package org.nitrox.batchmyfile.layout;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.nitrox.batchmyfile.file.FilePartType;
 
@@ -17,6 +19,20 @@ import org.nitrox.batchmyfile.file.FilePartType;
 public interface Layout {
 
     public List<Field> getFields();
+    
+    public default Field getPartFileDescriptorField() {
+        java.lang.reflect.Field[] fields = this.getClass().getFields();
+        for (java.lang.reflect.Field field : fields) {
+            if(field.isAnnotationPresent(PartFileDescriptorField.class)) {
+                try {
+                    return (Field)field.get(this);
+                } catch (IllegalArgumentException|IllegalAccessException ex) {
+                    Logger.getLogger(Layout.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+            }
+        }
+        return null;
+    }
 
     public default List<Field> getFieldsByFilePartType(FilePartType filePartType) {
         List<Field> fieldsByFilePart = getFields().stream().filter(field

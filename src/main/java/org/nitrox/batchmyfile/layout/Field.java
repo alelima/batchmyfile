@@ -17,9 +17,7 @@ public interface Field {
     public int size();
     
     public String getName();
-    
-    public String getAtributeName();
-    
+        
     public DataType getDataType();
     
     public FilePartType getPartFile();

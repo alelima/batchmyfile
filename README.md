@@ -3,7 +3,7 @@ A library to assist in batch processing of positional files.
 
 # The problem
 
-In many Systems the integration way used is exchange of positional files. These files have a layout with descripts de size and type of information field.
+In many Systems the integration way used is exchange of positional files. These files have a layout with descripts de size and type of informations fields.
 Like This:  
 
 File content:  

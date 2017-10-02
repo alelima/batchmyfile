@@ -2,7 +2,7 @@
 1. Usar anotattions para o link entre o nome do atributo da classe destino e o nome do campo no layout
 ex:
 
-@LayoutField("DATA_COMPENSACAO")
+@LayoutField(name="DATA_COMPENSACAO")
 public Date dataCompensacao;
 
 - Criada a anottation, falta o handler

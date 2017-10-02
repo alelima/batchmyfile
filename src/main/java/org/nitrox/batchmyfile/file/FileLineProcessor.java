@@ -31,7 +31,7 @@ public class FileLineProcessor {
     }
 
     private Object getFieldValue(Field field) {
-        int range = field.size() + cursor;
+        int range = field.getSize() + cursor;
         String fieldValue = "";
         Object value = null;
         try {

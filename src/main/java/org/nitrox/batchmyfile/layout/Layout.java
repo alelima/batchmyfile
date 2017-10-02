@@ -36,7 +36,7 @@ public interface Layout {
 
     public default List<Field> getFieldsByFilePartType(FilePartType filePartType) {
         List<Field> fieldsByFilePart = getFields().stream().filter(field
-                -> field.getPartFile().equals(filePartType)).collect(Collectors.toList());
+                -> field.getFilePartTipe().equals(filePartType)).collect(Collectors.toList());
         return fieldsByFilePart;
     }
 
@@ -46,6 +46,6 @@ public interface Layout {
 
     public default int getLineSizeByFilePartType(FilePartType filePartType) {
         List<Field> fields = getFieldsByFilePartType(filePartType);
-        return fields.stream().mapToInt(field -> field.size()).sum();
+        return fields.stream().mapToInt(field -> field.getSize()).sum();
     }
 }

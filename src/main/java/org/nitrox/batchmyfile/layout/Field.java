@@ -12,17 +12,50 @@ import org.nitrox.batchmyfile.file.FilePartType;
  *
  * @author Alessandro Lima
  */
-public interface Field {
+public class Field {
+
+    private int size;
+
+    private String name;
+
+    private DataType dataType;
+
+    private FilePartType filePartTipe;
     
-    public int size();
+    private boolean obligatory;
     
-    public String getName();
-        
-    public DataType getDataType();
+    private Layout layout;
+
+    public Field(int size, String name, DataType dataType, FilePartType filePartTipe, boolean obligatory, Layout layout) {
+        this.size = size;
+        this.name = name;
+        this.dataType = dataType;
+        this.filePartTipe = filePartTipe;
+        this.obligatory = obligatory;
+        this.layout = layout;
+    }
     
-    public FilePartType getPartFile();
-    
-    public boolean isObligatory();
-    
-    public Layout getLayout();
+    public int getSize() {
+        return size;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
+    public FilePartType getFilePartTipe() {
+        return filePartTipe;
+    }
+
+    public boolean isObligatory() {
+        return obligatory;
+    }
+
+    public Layout getLayout() {
+        return layout;
+    }
 }

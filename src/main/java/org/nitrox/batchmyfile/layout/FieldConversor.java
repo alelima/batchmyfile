@@ -27,7 +27,7 @@ public class FieldConversor {
     public static String objectToString(Object fieldValue, Field field) {
         DataType dataType = field.getDataType();
         String valor = dataType.toString(fieldValue); 
-        return StringUtil.insertZeros(valor, field.size());
+        return StringUtil.insertZeros(valor, field.getSize());
     }
 
     /**

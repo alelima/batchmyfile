@@ -5,6 +5,6 @@ ex:
 @LayoutField(name="DATA_COMPENSACAO")
 public Date dataCompensacao;
 
-- Criada a anottation, falta o handler
+- Criada a anottation, falta o handler.
 
 2. Definir uma forma dinâmica de colocar os valores possíveis no TypeFileDescriptor

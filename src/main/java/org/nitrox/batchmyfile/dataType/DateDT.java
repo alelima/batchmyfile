@@ -10,7 +10,7 @@ import org.nitrox.batchmyfile.util.DateUtil;
 
 /**
  *
- * @author 03883182443
+ * @author Alessandro Lima
  */
 public class DateDT implements DataType {
 

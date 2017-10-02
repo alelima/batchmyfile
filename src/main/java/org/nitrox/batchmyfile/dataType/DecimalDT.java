@@ -7,7 +7,7 @@ package org.nitrox.batchmyfile.dataType;
 
 /**
  *
- * @author 03883182443
+ * @author Alessandro Lima
  */
 public class DecimalDT implements DataType {
     

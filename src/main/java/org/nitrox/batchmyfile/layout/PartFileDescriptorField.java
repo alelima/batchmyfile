@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 
 /**
  *
- * @author 03883182443
+ * @author Alessandro Lima
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)

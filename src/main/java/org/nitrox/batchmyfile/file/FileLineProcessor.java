@@ -15,7 +15,7 @@ import org.nitrox.batchmyfile.layout.Layout;
 
 /**
  *
- * @author 03883182443
+ * @author Alessandro Lima
  */
 public class FileLineProcessor {
 

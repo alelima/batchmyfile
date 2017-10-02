@@ -14,7 +14,7 @@ import org.nitrox.batchmyfile.util.StringUtil;
 
 /**
  *
- * @author 03883182443
+ * @author Alessandro Lima
  */
 public class FieldConversor {
 

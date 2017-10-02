@@ -9,7 +9,7 @@ import org.nitrox.batchmyfile.util.DateUtil;
 
 /**
  *
- * @author 03883182443
+ * @author Alessandro Lima
  */
 
 //TODO: Resolver o problema da hora, tem que usar um date, mas qual date?

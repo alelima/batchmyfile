@@ -14,8 +14,8 @@ import org.nitrox.batchmyfile.file.FilePartType;
 
 /**
  *
- * @author Alessandro Lima
  */
+@FunctionalInterface
 public interface Layout {
 
     public List<Field> getFields();

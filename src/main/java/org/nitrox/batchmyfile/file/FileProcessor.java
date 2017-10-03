@@ -7,18 +7,14 @@ package org.nitrox.batchmyfile.file;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.LineIterator;
 import org.nitrox.batchmyfile.layout.Field;
 import org.nitrox.batchmyfile.layout.Layout;
 
-/**
- *
- * @author Alessandro Lima
- */
 public class FileProcessor {
 
     public List<Map<String, Object>> process(File file, Layout layout) {
@@ -35,18 +31,26 @@ public class FileProcessor {
 
     private void importaInformacoesArquivo(File arquivo, List<Map<String, Object>> valoresArquivo, Layout layout) throws IOException {
 
-        LineIterator linhas;
-        linhas = FileUtils.lineIterator(arquivo, "UTF-8");
+        //LineIterator linhas;
         Field partFileDescriptorField = layout.getPartFileDescriptorField();
-        while (linhas.hasNext()) {
-            String linha = linhas.next();
+        Files.lines(arquivo.toPath()).forEach(
+                linha -> {
+                    FileLineProcessor lineProcessor = new FileLineProcessor(linha);
+                    valoresArquivo.add(lineProcessor.getFieldsLineValues(partFileDescriptorField));
+                }
+        );
 
-            if (linha.length() == 0 || !FilePartType.isValueValid(linha.substring(0, 1))) {
-                continue;
-            }
-
-            FileLineProcessor lineProcessor = new FileLineProcessor(linha);
-            valoresArquivo.add(lineProcessor.getFieldsLineValues(partFileDescriptorField));
-        }
+//        linhas = FileUtils.lineIterator(arquivo, "UTF-8");
+//
+//        while (linhas.hasNext()) {
+//            String linha = linhas.next();
+//
+//            if (linha.length() == 0 || !FilePartType.isValueValid(linha.substring(0, 1))) {
+//                continue;
+//            }
+//
+//            FileLineProcessor lineProcessor = new FileLineProcessor(linha);
+//            valoresArquivo.add(lineProcessor.getFieldsLineValues(partFileDescriptorField));
+//        }
     }
 }

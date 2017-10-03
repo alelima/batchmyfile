@@ -75,7 +75,7 @@ public class DateUtil {
             sdf.setLenient(false);
             return sdf.parse(dateString);
         } catch (ParseException excecao) {
-            return null;
+            throw new BatchMyFileException("Not possible parse the date", excecao);
         }
     }
 

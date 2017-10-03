@@ -5,6 +5,7 @@
  */
 package org.nitrox.batchmyfile.file;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class FileLineProcessor {
     private int cursor = 0;
 
     public FileLineProcessor(String line) {
+
         this.line = line;
     }
 
@@ -57,6 +59,7 @@ public class FileLineProcessor {
 
     public Map<String, Object> getFieldsLineValues(Field partFileDescriptorField) {
         String partFileDescriptorValue = this.getFieldValue(partFileDescriptorField).toString();
+        this.line = line.substring(1, line.length());
         FilePartType filePartType = FilePartType.getFilePartTypeByValue(partFileDescriptorValue);
         Layout layout = partFileDescriptorField.getLayout();
         fillLineIfSmallerThanTotalSize(partFileDescriptorField, filePartType);

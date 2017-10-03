@@ -22,7 +22,7 @@ public class DateDT implements DataType {
 
     @Override
     public Object toObject(String value) {
-        return DateUtil.toDate(value, datePattern); 
+        return DateUtil.toDate(value, datePattern);
     }
 
     @Override

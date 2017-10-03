@@ -5,31 +5,32 @@
  */
 package org.nitrox.batchmyfile.file;
 
-/**
- *
- * @author Alessandro Lima
- */
+
 public enum FilePartType {
-    HEADER, 
-    DETAIL,
-    TRAILLER, 
-    PART_DESCRIPTOR;
-    
-    public static FilePartType getFilePartTypeByValue(
-			String valorTipo) {
-		FilePartType[] tipos = values();
-		for (int i = 0; i < tipos.length; i++) {
-//			if (tipos[i].valorEmpresa.equals(valorTipo)
-//					|| tipos[i].valorBanco.equals(valorTipo)
-//					|| tipos[i].valorCorreios.equals(valorTipo)) {
-//				return tipos[i];
-//			}
+    HEADER(0),
+    DETAIL(1),
+    TRAILLER(2),
+    PART_DESCRIPTOR(-1);
+
+    private int value;
+
+	private FilePartType(int value) {
+		this.value = value;
+	}
+
+	public static FilePartType getFilePartTypeByValue(String typeValue) {
+		int valueToCompare = Integer.parseInt(typeValue);
+		FilePartType[] types = values();
+		for (int i = 0; i < types.length; i++) {
+			if (types[i].value == valueToCompare) {
+				return types[i];
+			}
 		}
 		return null;
 	}
     
-    public static boolean isValueValid(String valorTipo) {
-		if(getFilePartTypeByValue(valorTipo) == null) {
+    public static boolean isValueValid(String typeValue) {
+		if(getFilePartTypeByValue(typeValue) == null) {
 			return false;
 		}
 		return true;

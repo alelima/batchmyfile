@@ -14,10 +14,6 @@ import org.nitrox.batchmyfile.layout.Field;
 import org.nitrox.batchmyfile.layout.FieldConversor;
 import org.nitrox.batchmyfile.layout.Layout;
 
-/**
- *
- * @author Alessandro Lima
- */
 public class FileLineProcessor {
 
     //private static final Logger LOG = LoggerFactory.getLogger(ProcessadorLinha.class);

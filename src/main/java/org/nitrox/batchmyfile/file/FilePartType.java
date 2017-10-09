@@ -6,33 +6,17 @@
 package org.nitrox.batchmyfile.file;
 
 
-public enum FilePartType {
-    HEADER(0),
-    DETAIL(1),
-    TRAILLER(2),
-    PART_DESCRIPTOR(-1);
+public interface FilePartType {
 
-    private int value;
+    public String getValue();
 
-	private FilePartType(int value) {
-		this.value = value;
-	}
+	public static <T extends FilePartType> FilePartType getFilePartTypeByValue(String typeValue, T enumType) {
+        for (FilePartType e : enumType.getClass().getEnumConstants()) {
+            if(e.getValue().equals(typeValue)) {
+                return e;
+            }
+        }
+        return null;
+    }
 
-	public static FilePartType getFilePartTypeByValue(String typeValue) {
-		int valueToCompare = Integer.parseInt(typeValue);
-		FilePartType[] types = values();
-		for (int i = 0; i < types.length; i++) {
-			if (types[i].value == valueToCompare) {
-				return types[i];
-			}
-		}
-		return null;
-	}
-    
-    public static boolean isValueValid(String typeValue) {
-		if(getFilePartTypeByValue(typeValue) == null) {
-			return false;
-		}
-		return true;
-	}
 }

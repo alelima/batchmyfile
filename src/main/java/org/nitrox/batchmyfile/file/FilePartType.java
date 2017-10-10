@@ -10,8 +10,8 @@ public interface FilePartType {
 
     public String getValue();
 
-	public static <T extends FilePartType> FilePartType getFilePartTypeByValue(String typeValue, T enumType) {
-        for (FilePartType e : enumType.getClass().getEnumConstants()) {
+	public static <T extends FilePartType> FilePartType getFilePartTypeByValue(String typeValue, Class<T> enumType) {
+        for (FilePartType e : enumType.getEnumConstants()) {
             if(e.getValue().equals(typeValue)) {
                 return e;
             }

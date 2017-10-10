@@ -9,12 +9,14 @@ public enum DefaultFilePartType implements FilePartType{
     private String value;
 
     private DefaultFilePartType(String value) {
+
         this.value = value;
     }
 
     @Override
     public String getValue() {
-        return null;
+
+        return value;
     }
 
 

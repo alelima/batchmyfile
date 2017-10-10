@@ -55,8 +55,9 @@ public class FileLineProcessor {
 
     public Map<String, Object> getFieldsLineValues(Field partFileDescriptorField) {
         String partFileDescriptorValue = this.getFieldValue(partFileDescriptorField).toString();
+        Class partFileDescClass = partFileDescriptorField.getFilePartTipe().getClass();
         this.line = line.substring(1, line.length());
-        FilePartType filePartType = FilePartType.getFilePartTypeByValue(partFileDescriptorValue);
+        FilePartType filePartType = FilePartType.getFilePartTypeByValue(partFileDescriptorValue, partFileDescClass);
         Layout layout = partFileDescriptorField.getLayout();
         fillLineIfSmallerThanTotalSize(partFileDescriptorField, filePartType);
         return getLineValues(layout, filePartType);

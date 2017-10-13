@@ -13,8 +13,28 @@ File content:
 20002  
 
 Layout:  
-<b>Header</b> - position 0 (value = 0), part file description; position 1 to 8, date of creation; position 9 to 12, sequential number.  
-<b>Detail</b> - position 0 (value = 1), part file description; position 1 to 3, sequential number line; position 4 to 11, date of payment; position 12 to 16, value of payment.  
-<b>Trailler</b> - position 0 (value = 2), part file description; position 1 to 4, number of lines in this file.  
+<b>Header</b> - part file description value = 0
+
+|Position|Name|Data Type|Obligatory|
+|---|---|---|---|
+| 1 - 1 | part file description | Alphanumeric  | yes  |
+| 2 - 9 | date of creation  | Date | yes  |
+| 10 - 13  | Sequential Number  | Numeric | yes  |
+
+<b>Detail</b> - part file description value = 1
+
+|Position|Name|Data Type|Obligatory|
+|---|---|---|---|
+| 1 - 1 | part file description | Alphanumeric  | yes |
+| 2 - 5 | sequential number line | Numeric | yes |
+| 6 - 13  | date of payment | Date | yes |
+| 14 - 20  | value of payment | Currency | yes |
+
+<b>Trailler</b> -  part file description value = 2 , part file description; position 1 to 4, number of lines in this file.  
+
+|Position|Name|Data Type|Obligatory|
+|---|---|---|---|
+| 1 - 1 | part file description | Alphanumeric  | yes  |
+| 2 - 5 | number of lines in this file | Numeric | yes  |
 
 In construction...

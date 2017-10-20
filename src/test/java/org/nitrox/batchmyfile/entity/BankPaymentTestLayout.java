@@ -5,10 +5,7 @@
  */
 package org.nitrox.batchmyfile.entity;
 
-import org.nitrox.batchmyfile.dataType.AlfaNumericDT;
-import org.nitrox.batchmyfile.dataType.DateDT;
-import org.nitrox.batchmyfile.dataType.DecimalDT;
-import org.nitrox.batchmyfile.dataType.IntegerDT;
+import org.nitrox.batchmyfile.dataType.*;
 import org.nitrox.batchmyfile.file.DefaultFilePartType;
 import org.nitrox.batchmyfile.file.FilePartType;
 import org.nitrox.batchmyfile.layout.Field;
@@ -32,6 +29,8 @@ public class BankPaymentTestLayout implements Layout {
     //DETAIL
     private final Field datePayment = new Field(8, "datePayment", new DateDT(DateUtil.PADRAO_DATA_ARQUIVO), MyFilePartDescriptor.DETAIL, true, this);
 
+    private final Field hourPayment =  new Field(4, "hourPayment", new HourDT(), MyFilePartDescriptor.DETAIL, true, this);
+
     private final Field valuePayment = new Field(4, "valuePayment", new DecimalDT(), MyFilePartDescriptor.DETAIL, true, this);
 
     //TRAILLER
@@ -41,7 +40,7 @@ public class BankPaymentTestLayout implements Layout {
     @Override
     public List<Field> getFields() {
         return Arrays.asList(partFileDescription, dateCreation, fileSequential,
-                datePayment, valuePayment, numberLines);
+                datePayment, hourPayment, valuePayment, numberLines);
     }
 
 }

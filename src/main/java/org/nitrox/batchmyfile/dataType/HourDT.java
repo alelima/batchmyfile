@@ -7,22 +7,34 @@ package org.nitrox.batchmyfile.dataType;
 
 import org.nitrox.batchmyfile.util.DateUtil;
 
-/**
- *
- * @author Alessandro Lima
- */
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
-//TODO: Resolver o problema da hora, tem que usar um date, mas qual date?
 public class HourDT implements DataType{
+
+    private String pattern = "HHmm";
+
+    private DateTimeFormatter formatter;
+
+    public HourDT() {
+        this.formatter = DateTimeFormatter.ofPattern(pattern);
+    }
+
+    public HourDT(String pattern) {
+        this.pattern = pattern;
+        this.formatter = DateTimeFormatter.ofPattern(pattern);
+    }
 
     @Override
     public Object toObject(String value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LocalTime hour = LocalTime.parse(value, formatter);
+        return hour;
     }
 
     @Override
     public String toString(Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        LocalTime hour = (LocalTime) value;
+        return hour.format(formatter);
     }
 
     

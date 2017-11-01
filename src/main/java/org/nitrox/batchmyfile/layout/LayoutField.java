@@ -18,4 +18,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 public @interface LayoutField {
     String name();
+
+    String partFile();
 }

@@ -53,14 +53,16 @@ public class FileLineProcessor {
         return fieldValues;
     }
 
-    public Map<String, Object> getFieldsLineValues(Field partFileDescriptorField) {
-        String partFileDescriptorValue = this.getFieldValue(partFileDescriptorField).toString();
-        Class partFileDescClass = partFileDescriptorField.getFilePartTipe().getClass();
-        this.line = line.substring(1, line.length());
-        FilePartType filePartType = FilePartType.getFilePartTypeByValue(partFileDescriptorValue, partFileDescClass);
-        Layout layout = partFileDescriptorField.getLayout();
-        fillLineIfSmallerThanTotalSize(partFileDescriptorField, filePartType);
+    public Map<String, Object> getFieldsLineValues(FilePartType filePartType, Layout layout) {
+        fillLineIfSmallerThanTotalSize(layout, filePartType);
         return getLineValues(layout, filePartType);
+    }
+
+    public FilePartType getLinePartFileType(Field genericPartFileDescriptorField) {
+        String partFileDescriptorValue = this.getFieldValue(genericPartFileDescriptorField).toString();
+        Class partFileDescClass = genericPartFileDescriptorField.getFilePartTipe().getClass();
+        this.line = line.substring(1, line.length());
+        return FilePartType.getFilePartTypeByValue(partFileDescriptorValue, partFileDescClass);
     }
 
     private Map<String, Object> getLineValues(Layout layout, FilePartType filePartType) {
@@ -68,8 +70,8 @@ public class FileLineProcessor {
         return this.getLineFieldsValues(fields);
     }
 
-    private void fillLineIfSmallerThanTotalSize (Field partFileDescriptorField, FilePartType filePartType) {
-        int totalLineChar = partFileDescriptorField.getLayout().getLineSizeByFilePartType(filePartType);
+    private void fillLineIfSmallerThanTotalSize (Layout layout, FilePartType filePartType) {
+        int totalLineChar = layout.getLineSizeByFilePartType(filePartType);
         if (line.length() < totalLineChar) {
             line = String.format("%-" + totalLineChar + "s", line);
         }

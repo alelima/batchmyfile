@@ -8,13 +8,13 @@ import java.util.Date;
 
 public class PaymentVO implements ConvertedFileValue {
 
-    @LayoutField(name = "datePayment")
+    @LayoutField(name = "datePayment", partFile = "DETAIL")
     private Date dateOfPayment;
 
-    @LayoutField(name = "hourPayment")
+    @LayoutField(name = "hourPayment", partFile = "DETAIL")
     private LocalTime hourOfPayment;
 
-    @LayoutField(name = "valuePayment")
+    @LayoutField(name = "valuePayment", partFile = "DETAIL")
     private Double valueOfPayment;
 
     public Date getDateOfPayment() {

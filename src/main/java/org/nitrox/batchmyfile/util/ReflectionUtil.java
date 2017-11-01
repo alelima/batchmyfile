@@ -9,10 +9,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Alessandro Lima
- */
 public class ReflectionUtil {
     
     private static void carregarCampos(Class<?> clazz, List<Field> campos) {
@@ -25,10 +21,20 @@ public class ReflectionUtil {
         carregarCampos(clazz.getSuperclass(), campos);
     }
 
+    public static Field[] getFields(Class<?> clazz) {
+        return obterCampos(clazz);
+    }
+
     public static Field[] obterCampos(Class<?> clazz) {
         List<Field> campos = new ArrayList<Field>();
         carregarCampos(clazz, campos);
         return campos.toArray(new Field[campos.size()]);
+    }
+
+    public static List<Field> getListFields(Class<?> clazz) {
+        List<Field> campos = new ArrayList<>();
+        carregarCampos(clazz, campos);
+        return campos;
     }
 
     public static Object obterValor(Field campo, Object objeto) {

@@ -1,6 +1,6 @@
 package org.nitrox.batchmyfile.file;
 
-public enum DefaultFilePartType implements FilePartType<DefaultFilePartType>{
+public enum DefaultFilePartType implements FilePartType {
     HEADER("0") ,
     DETAIL("1"),
     TRAILLER("2"),

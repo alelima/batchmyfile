@@ -10,7 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface LayoutPart {
-    Class<? extends Enum<?>> filePartClass();
-
     String filePartName();
 }

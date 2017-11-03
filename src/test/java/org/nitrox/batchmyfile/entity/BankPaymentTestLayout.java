@@ -22,7 +22,7 @@ public class BankPaymentTestLayout implements Layout {
     private final Field partFileDescription = new Field(1, "partFileDescriptor", new AlfaNumericDT(), MyFilePartDescriptor.HEADER, true, this);
 
     //HEADER
-    private final Field dateCreation = new Field(8, "dateCriation", new DateDT(DateUtil.PADRAO_DATA_ARQUIVO), MyFilePartDescriptor.HEADER, true, this);
+    private final Field dateCreation = new Field(8, "dateCreation", new DateDT(DateUtil.PADRAO_DATA_ARQUIVO), MyFilePartDescriptor.HEADER, true, this);
 
     private final Field fileSequential = new Field(5, "fileSequential", new IntegerDT(), MyFilePartDescriptor.HEADER, true, this);
 

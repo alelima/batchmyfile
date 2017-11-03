@@ -13,9 +13,9 @@ public class BatchFileExample {
 
         FileProcessor fileProcessor = new FileProcessor();
         FileValueConversor conversor = new FileValueConversor();
-        File file = new File();
+        //File file = new File();
 
-        BankDayPaymentsVO bankVO2 = conversor.convert(bankVO, fileProcessor.process(file, bankLayout));
+        //BankDayPaymentsVO bankVO2 = conversor.convert(bankVO, fileProcessor.process(file, bankLayout));
 
 
     }

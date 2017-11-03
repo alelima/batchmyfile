@@ -8,6 +8,7 @@ import org.nitrox.batchmyfile.layout.LayoutPart;
 import org.nitrox.batchmyfile.util.ReflectionUtil;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,31 +18,58 @@ import java.util.stream.Collectors;
 public class FileValueConversor {
 
 
-    public ConvertedFileValue convert2(ConvertedFileValue fileValue, Layout layout, Map<FilePartType, List<StructuredProcessedLine>> structuredFile) {
-        List<Field> fields = ReflectionUtil.getListFields(ConvertedFileValue.class);
+    public ConvertedFileValue convert(ConvertedFileValue convertedFileValue, Layout layout, Map<FilePartType, List<StructuredProcessedLine>> structuredFile) {
+        List<Field> fields = ReflectionUtil.getListFields(convertedFileValue.getClass());
         Class partFileDescriptorClass = layout.getPartFileDescriptorField().getFilePartTipe().getClass();
         List<StructuredProcessedLine> lines = null;
 
         Map<Boolean, List<Field>> fieldsAnnoted = fields.stream().collect(Collectors.groupingBy(f -> (Boolean) f.isAnnotationPresent(LayoutField.class)));
         List<Field> fieldAnnotedLayoutField = fieldsAnnoted.get(Boolean.TRUE);
+        fieldAnnotedLayoutField = fieldAnnotedLayoutField != null? fieldAnnotedLayoutField : new ArrayList<>();
 
         fieldsAnnoted = fields.stream().collect(Collectors.groupingBy(f -> (Boolean) f.isAnnotationPresent(LayoutPart.class)));
-        List<Field> fieldAnnotedLayoutPart = fieldsAnnoted.get(Boolean.TRUE);
-
+        List<Field> fieldsAnnotedLayoutPart = fieldsAnnoted.get(Boolean.TRUE);
+        fieldsAnnotedLayoutPart = fieldsAnnotedLayoutPart != null? fieldsAnnotedLayoutPart : new ArrayList<>();
 
         Map<FilePartType, List<Field>> fieldsByFilePart = fillFieldsByFilePart(partFileDescriptorClass, fieldAnnotedLayoutField);
 
         for (Map.Entry<FilePartType, List<Field>> entry : fieldsByFilePart.entrySet()) {
             FilePartType filePart = entry.getKey();
-            convert(fileValue, entry.getValue(), structuredFile.get(filePart));
-
+            convert(convertedFileValue, entry.getValue(), structuredFile.get(filePart));
         }
 
 
-        //LayoutPart
+        for (Field field: fieldsAnnotedLayoutPart) {
+            if (field.getType().equals(List.class)) {
+                field.setAccessible(true);
+                List<ConvertedFileValue> listValues = null;
+                try {
+                    listValues = (List<ConvertedFileValue>) field.get(convertedFileValue);
+                    ParameterizedType listType = (ParameterizedType) field.getGenericType();
+                    Class<?> listTypeClass = (Class<?>) listType.getActualTypeArguments()[0];
 
-        return fileValue;
+                    LayoutPart layoutPart = field.getAnnotation(LayoutPart.class);
+                    String filePartName = layoutPart.filePartName();
+                    FilePartType partTypeOfField = FilePartType.valueOf(filePartName, partFileDescriptorClass);
 
+                    List<StructuredProcessedLine> spLines = structuredFile.get(partTypeOfField);
+                    spLines = spLines != null? spLines : new ArrayList<>();
+
+                    int amountLines = spLines.size();
+
+                    for (int i = 0; i < amountLines; i++) {
+                        ConvertedFileValue cfv = (ConvertedFileValue) listTypeClass.newInstance();
+                        cfv = this.convert(cfv, layout, structuredFile);
+                        listValues.add(cfv);
+                    }
+                } catch (IllegalAccessException|InstantiationException e) {
+                    e.printStackTrace();
+                } finally {
+                    field.setAccessible(false);
+                }
+            }
+        }
+        return convertedFileValue;
     }
 
     private void convert(ConvertedFileValue fileValue, List<Field> fields,
@@ -120,6 +148,7 @@ public class FileValueConversor {
     private void fillField(ConvertedFileValue fileValue, Field field, Object value) {
         boolean acessible = field.isAccessible();
         try {
+            field.setAccessible(!acessible);
             field.set(fileValue, value);
         } catch (IllegalAccessException e) {
             e.printStackTrace();

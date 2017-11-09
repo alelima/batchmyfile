@@ -32,7 +32,7 @@ public class BankPaymentTestLayout implements Layout {
     private final Field dateCreation = LayoutFieldBuilder.newBuilder()
             .name("dateCreation")
             .size(8)
-            .dataType(new DateDT(DateUtil.PADRAO_DATA_ARQUIVO))
+            .dataType(new DateDT("yyyyMMdd"))
             .filePartType(MyFilePartDescriptor.HEADER)
             .obligatory(true)
             .build();
@@ -40,7 +40,7 @@ public class BankPaymentTestLayout implements Layout {
     private final Field fileSequential = new Field(5, "fileSequential", new IntegerDT(), MyFilePartDescriptor.HEADER, true);
 
     //DETAIL
-    private final Field datePayment = new Field(8, "datePayment", new DateDT(DateUtil.PADRAO_DATA_ARQUIVO), MyFilePartDescriptor.DETAIL, true);
+    private final Field datePayment = new Field(8, "datePayment", new DateDT("yyyyMMdd"), MyFilePartDescriptor.DETAIL, true);
 
     private final Field hourPayment =  new Field(4, "hourPayment", new HourDT(), MyFilePartDescriptor.DETAIL, true);
 

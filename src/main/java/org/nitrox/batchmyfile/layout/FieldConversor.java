@@ -39,7 +39,7 @@ public class FieldConversor {
      * @param objeto - Objeto a ser preenchido
      */
     public static void preencheObjeto(Object objeto, Map<String, Object> valores) {
-        for (java.lang.reflect.Field campo : ReflectionUtil.obterCampos(objeto.getClass())) {
+        for (java.lang.reflect.Field campo : ReflectionUtil.getFields(objeto.getClass())) {
             boolean acessivel = campo.isAccessible();
             try {
                 campo.setAccessible(true);
@@ -64,7 +64,7 @@ public class FieldConversor {
      * @param objeto - Objeto que irá preencher suas informações no Map
      */
     public static void preencheValores(Map<String, Object> valores, Object objeto) {
-        for (java.lang.reflect.Field campo : ReflectionUtil.obterCampos(objeto.getClass())) {
+        for (java.lang.reflect.Field campo : ReflectionUtil.getFields(objeto.getClass())) {
             boolean acessivel = campo.isAccessible();
             try {
                 campo.setAccessible(true);

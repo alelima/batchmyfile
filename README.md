@@ -37,4 +37,8 @@ Layout:
 | 1 - 1 | part file description | Alphanumeric  | yes  |
 | 2 - 5 | number of lines in this file | Numeric | yes  |
 
-In construction...
+# The Solution:
+
+First you only have to create a class that implements the batchmyfile Layout interface, and define in this classes the same fields that are specified in the file layout documentation.
+Second you have to create a object where the file values where the values will be loaded guided by some annotations.
+

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("LineProcessor")
-@DisplayName("Testing the file line processor")
+@DisplayName("Testing the Conversor ")
 public class FileValueConversorTest {
 
     @Test
@@ -39,25 +39,25 @@ public class FileValueConversorTest {
         FileValueConversor conversor = new FileValueConversor();
 
         Map<String, Object> headerLine = new HashMap<>();
-        headerLine.put("dateCreation", new Date());
+        headerLine.put("dateCreation", new Integer(5));
         headerLine.put("fileSequential", new Integer(5));
         StructuredProcessedLine headerStructuredLine = new StructuredProcessedLine(MyFilePartDescriptor.HEADER, headerLine);
 
         Map<String, Object> detailLine1 = new HashMap<>();
         detailLine1.put("datePayment", new Date());
-        detailLine1.put("hourPayment", LocalTime.of(12, 30,01,0));
+        detailLine1.put("hourPayment", LocalTime.of(12, 30,1,0));
         detailLine1.put("valuePayment", new Double("124.54"));
         StructuredProcessedLine detailStructuredLine1 = new StructuredProcessedLine(MyFilePartDescriptor.DETAIL, detailLine1);
 
         Map<String, Object> detailLine2 = new HashMap<>();
         detailLine2.put("datePayment", new Date());
-        detailLine2.put("hourPayment", LocalTime.of(01, 15,01,0));
+        detailLine2.put("hourPayment", LocalTime.of(1, 15,1,0));
         detailLine2.put("valuePayment", new Double("240.78"));
         StructuredProcessedLine detailStructuredLine2 = new StructuredProcessedLine(MyFilePartDescriptor.DETAIL, detailLine2);
 
         Map<String, Object> detailLine3 = new HashMap<>();
         detailLine3.put("datePayment", new Date());
-        detailLine3.put("hourPayment", LocalTime.of(8, 45,01,0));
+        detailLine3.put("hourPayment", LocalTime.of(8, 45,1,0));
         detailLine3.put("valuePayment", new Double("45.67"));
         StructuredProcessedLine detailStructuredLine3 = new StructuredProcessedLine(MyFilePartDescriptor.DETAIL, detailLine3);
 

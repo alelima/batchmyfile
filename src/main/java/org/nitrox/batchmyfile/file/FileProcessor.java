@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 import org.nitrox.batchmyfile.layout.Field;
@@ -43,12 +44,12 @@ public class FileProcessor {
     }
 
     private void transformFileLinesInStructuredLines(File arquivo, Layout layout, Field partFileDescriptorField, List<StructuredProcessedLine> structuredLines) throws IOException {
+
+        AtomicLong counter = new AtomicLong();
         Files.lines(arquivo.toPath()).forEach(
                 linha -> {
-                    FileLineProcessor lineProcessor = new FileLineProcessor(linha);
-                    FilePartType filePartType = lineProcessor.getLinePartFileType(partFileDescriptorField);
-                    Map<String, Object> lineValues = lineProcessor.getFieldsLineValues(filePartType, layout);
-                    StructuredProcessedLine spl = new StructuredProcessedLine(filePartType, lineValues);
+                    FileLineProcessor lineProcessor = new FileLineProcessor(linha, counter.incrementAndGet());
+                    StructuredProcessedLine spl = lineProcessor.process(partFileDescriptorField, layout);
                     structuredLines.add(spl);
                 }
         );

@@ -1,5 +1,6 @@
 package org.nitrox.batchmyfile.conversor;
 
+import org.nitrox.batchmyfile.exception.ConversionFromLayoutException;
 import org.nitrox.batchmyfile.file.FilePartType;
 import org.nitrox.batchmyfile.file.StructuredProcessedLine;
 import org.nitrox.batchmyfile.layout.Layout;
@@ -13,9 +14,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class FileValueConversor {
+
+    private static Logger LOGGER = Logger.getLogger(FileValueConversor.class.getName());
 
 
     public ConvertedFileValue convert(ConvertedFileValue convertedFileValue, Layout layout, Map<FilePartType, List<StructuredProcessedLine>> structuredFile) {
@@ -25,11 +30,11 @@ public class FileValueConversor {
 
         Map<Boolean, List<Field>> fieldsAnnoted = fields.stream().collect(Collectors.groupingBy(f -> (Boolean) f.isAnnotationPresent(LayoutField.class)));
         List<Field> fieldAnnotedLayoutField = fieldsAnnoted.get(Boolean.TRUE);
-        fieldAnnotedLayoutField = fieldAnnotedLayoutField != null? fieldAnnotedLayoutField : new ArrayList<>();
+        fieldAnnotedLayoutField = fieldAnnotedLayoutField != null ? fieldAnnotedLayoutField : new ArrayList<>();
 
         fieldsAnnoted = fields.stream().collect(Collectors.groupingBy(f -> (Boolean) f.isAnnotationPresent(LayoutPart.class)));
         List<Field> fieldsAnnotedLayoutPart = fieldsAnnoted.get(Boolean.TRUE);
-        fieldsAnnotedLayoutPart = fieldsAnnotedLayoutPart != null? fieldsAnnotedLayoutPart : new ArrayList<>();
+        fieldsAnnotedLayoutPart = fieldsAnnotedLayoutPart != null ? fieldsAnnotedLayoutPart : new ArrayList<>();
 
         Map<FilePartType, List<Field>> fieldsByFilePart = fillFieldsByFilePart(partFileDescriptorClass, fieldAnnotedLayoutField);
 
@@ -39,10 +44,10 @@ public class FileValueConversor {
         }
 
 
-        for (Field field: fieldsAnnotedLayoutPart) {
+        for (Field field : fieldsAnnotedLayoutPart) {
             if (field.getType().equals(List.class)) {
                 field.setAccessible(true);
-                List<ConvertedFileValue> listValues = null;
+                List<ConvertedFileValue> listValues;
                 try {
                     listValues = (List<ConvertedFileValue>) field.get(convertedFileValue);
                     ParameterizedType listType = (ParameterizedType) field.getGenericType();
@@ -53,7 +58,7 @@ public class FileValueConversor {
                     FilePartType partTypeOfField = FilePartType.valueOf(filePartName, partFileDescriptorClass);
 
                     List<StructuredProcessedLine> spLines = structuredFile.get(partTypeOfField);
-                    spLines = spLines != null? spLines : new ArrayList<>();
+                    spLines = spLines != null ? spLines : new ArrayList<>();
 
                     int amountLines = spLines.size();
 
@@ -62,7 +67,7 @@ public class FileValueConversor {
                         cfv = this.convert(cfv, layout, structuredFile);
                         listValues.add(cfv);
                     }
-                } catch (IllegalAccessException|InstantiationException e) {
+                } catch (IllegalAccessException | InstantiationException e) {
                     e.printStackTrace();
                 } finally {
                     field.setAccessible(false);
@@ -74,7 +79,7 @@ public class FileValueConversor {
 
     private void convert(ConvertedFileValue fileValue, List<Field> fields,
                          List<StructuredProcessedLine> structuredLines) {
-        if(structuredLines.isEmpty()) {
+        if (structuredLines.isEmpty()) {
             return;
         }
 
@@ -82,6 +87,14 @@ public class FileValueConversor {
         for (Field field : fields) {
             LayoutField layoutField = field.getAnnotation(LayoutField.class);
             String fieldName = layoutField.name();
+
+            if (!line.getLine().containsKey(fieldName)) {
+                String keyNotFoundMessage = "Do not have a " + fieldName
+                        + " as field name in your layout," +
+                        " verify the field name in your LayoutField annotation";
+                LOGGER.log(Level.WARNING, keyNotFoundMessage);
+            }
+
             Object value = line.getLine().get(fieldName);
             fillField(fileValue, field, value);
         }
@@ -101,48 +114,13 @@ public class FileValueConversor {
 
             FilePartType partTypeOfField = FilePartType.valueOf(partFileName, partFileDescriptorClass);
 
-            if (fieldsByFilePart.get(partTypeOfField) == null) {
-                fieldsByFilePart.put(partTypeOfField, new ArrayList<>());
-            }
+            fieldsByFilePart.computeIfAbsent(partTypeOfField, k -> new ArrayList<>());
 
             fieldsByFilePart.get(partTypeOfField).add(field);
-
-//            for (StructuredProcessedLine line : lines) {
-//                Object value = line.getLine().get(fieldName);
-//                fillField(fileValue, values, field);
-//            }
-
         }
         return fieldsByFilePart;
     }
 
-
-//    public ConvertedFileValue convert(ConvertedFileValue fileValue, List<Map<String, Object>> values) {
-//        Class clazz = fileValue.getClass();
-//
-//        for (Field field  : ReflectionUtil.getFields(ConvertedFileValue.class)) {
-//
-//            if(field.isAnnotationPresent(LayoutField.class)) {
-//                fillField(fileValue, values, field);
-//                continue;
-//            }
-//
-//            if(field.isAnnotationPresent(LayoutPart.class)) {
-//                if(field.getType().equals(List.class)) {
-//                    field.setAccessible(true);
-//                    List<ConvertedFileValue> listValues = null;
-//                    try {
-//                        listValues = (List<ConvertedFileValue>) field.get(fileValue);
-//                    } catch (IllegalAccessException e) {
-//                        e.printStackTrace();
-//                    }
-//                    for (ConvertedFileValue cfv : listValues) {
-//                        this.convert(cfv, values);
-//                    }
-//
-//                }
-//            }
-//        }
 
 
     private void fillField(ConvertedFileValue fileValue, Field field, Object value) {
@@ -152,8 +130,18 @@ public class FileValueConversor {
             field.set(fileValue, value);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException iae) {
+            handleIAException(fileValue, field, value, iae);
         } finally {
             field.setAccessible(acessible);
         }
+    }
+
+    private void handleIAException(ConvertedFileValue fileValue, Field field, Object value, IllegalArgumentException iae) {
+        String actualClass = field.getType().toString();
+        String expectedClass = value.getClass().toString();
+        String message = "The Layout Definition type is " + expectedClass
+                + " but your type is " + actualClass;
+        throw new ConversionFromLayoutException(message, iae);
     }
 }

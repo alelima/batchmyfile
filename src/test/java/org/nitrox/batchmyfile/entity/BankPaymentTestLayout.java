@@ -5,6 +5,7 @@
  */
 package org.nitrox.batchmyfile.entity;
 
+import org.nitrox.batchmyfile.builder.LayoutFieldBuilder;
 import org.nitrox.batchmyfile.dataType.*;
 import org.nitrox.batchmyfile.file.DefaultFilePartType;
 import org.nitrox.batchmyfile.file.FilePartType;
@@ -19,22 +20,34 @@ import java.util.List;
 public class BankPaymentTestLayout implements Layout {
 
     @PartFileDescriptorField
-    private final Field partFileDescription = new Field(1, "partFileDescriptor", new AlfaNumericDT(), MyFilePartDescriptor.HEADER, true, this);
+    private final Field partFileDescription = LayoutFieldBuilder.newBuilder()
+            .name("partFileDescriptor")
+            .size(1)
+            .dataType(new AlfaNumericDT())
+            .filePartType(MyFilePartDescriptor.PART_DESCRIPTOR)
+            .obligatory(true)
+            .build();
 
     //HEADER
-    private final Field dateCreation = new Field(8, "dateCreation", new DateDT(DateUtil.PADRAO_DATA_ARQUIVO), MyFilePartDescriptor.HEADER, true, this);
+    private final Field dateCreation = LayoutFieldBuilder.newBuilder()
+            .name("dateCreation")
+            .size(8)
+            .dataType(new DateDT(DateUtil.PADRAO_DATA_ARQUIVO))
+            .filePartType(MyFilePartDescriptor.HEADER)
+            .obligatory(true)
+            .build();
 
-    private final Field fileSequential = new Field(5, "fileSequential", new IntegerDT(), MyFilePartDescriptor.HEADER, true, this);
+    private final Field fileSequential = new Field(5, "fileSequential", new IntegerDT(), MyFilePartDescriptor.HEADER, true);
 
     //DETAIL
-    private final Field datePayment = new Field(8, "datePayment", new DateDT(DateUtil.PADRAO_DATA_ARQUIVO), MyFilePartDescriptor.DETAIL, true, this);
+    private final Field datePayment = new Field(8, "datePayment", new DateDT(DateUtil.PADRAO_DATA_ARQUIVO), MyFilePartDescriptor.DETAIL, true);
 
-    private final Field hourPayment =  new Field(4, "hourPayment", new HourDT(), MyFilePartDescriptor.DETAIL, true, this);
+    private final Field hourPayment =  new Field(4, "hourPayment", new HourDT(), MyFilePartDescriptor.DETAIL, true);
 
-    private final Field valuePayment = new Field(4, "valuePayment", new DecimalDT(), MyFilePartDescriptor.DETAIL, true, this);
+    private final Field valuePayment = new Field(4, "valuePayment", new DecimalDT(), MyFilePartDescriptor.DETAIL, false);
 
     //TRAILLER
-    private final Field numberLines = new Field(4, "number lines", new IntegerDT(), MyFilePartDescriptor.TRAILLER, true, this);
+    private final Field numberLines = new Field(4, "numberLines", new IntegerDT(), MyFilePartDescriptor.TRAILLER, true);
 
 
     @Override

@@ -23,16 +23,15 @@ public class Field {
     private FilePartType filePartTipe;
     
     private boolean obligatory;
-    
-    private Layout layout;
 
-    public Field(int size, String name, DataType dataType, FilePartType filePartTipe, boolean obligatory, Layout layout) {
+    private boolean partFileDescriptor = false;
+
+    public Field(int size, String name, DataType dataType, FilePartType filePartTipe, boolean obligatory) {
         this.size = size;
         this.name = name;
         this.dataType = dataType;
         this.filePartTipe = filePartTipe;
         this.obligatory = obligatory;
-        this.layout = layout;
     }
     
     public int getSize() {
@@ -55,7 +54,12 @@ public class Field {
         return obligatory;
     }
 
-    public Layout getLayout() {
-        return layout;
+
+    public boolean isPartFileDescriptor() {
+        return partFileDescriptor;
+    }
+
+    protected void setPartFileDescriptor(boolean partFileDescriptor) {
+        this.partFileDescriptor = partFileDescriptor;
     }
 }

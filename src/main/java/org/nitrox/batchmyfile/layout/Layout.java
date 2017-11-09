@@ -27,6 +27,7 @@ public interface Layout {
             if(field.isAnnotationPresent(PartFileDescriptorField.class)) {
                 try {
                     field.setAccessible(true);
+                    ((Field) field.get(this)).setPartFileDescriptor(true);
                     return (Field)field.get(this);
                 } catch (IllegalArgumentException|IllegalAccessException ex) {
                     Logger.getLogger(Layout.class.getName()).log(Level.SEVERE, null, ex);
@@ -41,13 +42,10 @@ public interface Layout {
 
     public default List<Field> getFieldsByFilePartType(FilePartType filePartType) {
         List<Field> fieldsByFilePart = getFields().stream().filter(field
-                -> field.getFilePartTipe().equals(filePartType)).collect(Collectors.toList());
+                -> field.getFilePartTipe().equals(filePartType) && !field.isPartFileDescriptor())
+                .collect(Collectors.toList());
         return fieldsByFilePart;
     }
-
-    public default Optional<Field> getFieldByName(String name) {
-        return getFields().stream().filter(field -> field.getName().equals(name)).findFirst();
-    }    
 
     public default int getLineSizeByFilePartType(FilePartType filePartType) {
         List<Field> fields = getFieldsByFilePartType(filePartType);

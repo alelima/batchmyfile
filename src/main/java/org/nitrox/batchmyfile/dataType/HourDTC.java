@@ -5,22 +5,20 @@
  */
 package org.nitrox.batchmyfile.dataType;
 
-import org.nitrox.batchmyfile.util.DateUtil;
-
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-public class HourDT implements DataType{
+public class HourDTC implements DataTypeConverter {
 
     private String pattern = "HHmm";
 
     private DateTimeFormatter formatter;
 
-    public HourDT() {
+    public HourDTC() {
         this.formatter = DateTimeFormatter.ofPattern(pattern);
     }
 
-    public HourDT(String pattern) {
+    public HourDTC(String pattern) {
         this.pattern = pattern;
         this.formatter = DateTimeFormatter.ofPattern(pattern);
     }

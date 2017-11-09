@@ -9,8 +9,16 @@ package org.nitrox.batchmyfile.dataType;
  *
  * @author Alessandro Lima
  */
-public interface DataType {
-    public Object toObject(String value);
-    
-    public String toString(Object value);
+public class IntegerDTC implements DataTypeConverter {
+
+    @Override
+    public Object toObject(String value) {
+        return new Integer(value);
+    }
+
+    @Override
+    public String toString(Object value) {
+        return value.toString();
+    }
+
 }

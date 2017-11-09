@@ -1,4 +1,4 @@
-package org.nitrox.batchmyfile.conversor;
+package org.nitrox.batchmyfile.converter;
 
 public interface ConvertedFileValue {
 

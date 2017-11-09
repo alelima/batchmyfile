@@ -5,15 +5,13 @@
  */
 package org.nitrox.batchmyfile.file;
 
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.nitrox.batchmyfile.exception.ProcessPositionalFileException;
 import org.nitrox.batchmyfile.layout.Field;
-import org.nitrox.batchmyfile.layout.FieldConversor;
+import org.nitrox.batchmyfile.layout.FieldDataTypeConverter;
 import org.nitrox.batchmyfile.layout.Layout;
 
 public class FileLineProcessor {
@@ -64,7 +62,7 @@ public class FileLineProcessor {
         Object value = null;
         try {
             fieldValue = this.line.substring(cursor, range);
-            value = FieldConversor.stringToObject(fieldValue, field);
+            value = FieldDataTypeConverter.stringToObject(fieldValue, field);
         } catch (Exception e) {
             if(field.isObligatory()) {
                 String message = "Error in get the file value";

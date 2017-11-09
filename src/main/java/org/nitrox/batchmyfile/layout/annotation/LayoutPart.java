@@ -1,4 +1,4 @@
-package org.nitrox.batchmyfile.layout;
+package org.nitrox.batchmyfile.layout.annotation;
 
 import org.nitrox.batchmyfile.file.FilePartType;
 

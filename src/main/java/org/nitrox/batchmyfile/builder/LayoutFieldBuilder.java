@@ -1,6 +1,6 @@
 package org.nitrox.batchmyfile.builder;
 
-import org.nitrox.batchmyfile.dataType.DataType;
+import org.nitrox.batchmyfile.dataType.DataTypeConverter;
 import org.nitrox.batchmyfile.file.FilePartType;
 import org.nitrox.batchmyfile.layout.Field;
 
@@ -23,7 +23,7 @@ public class LayoutFieldBuilder {
     }
 
     public static interface DataTypeStep {
-        public FilePartTypeStep dataType(DataType dataType);
+        public FilePartTypeStep dataType(DataTypeConverter dataTypeConverter);
     }
 
     public static interface FilePartTypeStep {

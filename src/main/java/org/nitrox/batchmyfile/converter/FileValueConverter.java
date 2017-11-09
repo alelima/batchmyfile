@@ -1,11 +1,11 @@
-package org.nitrox.batchmyfile.conversor;
+package org.nitrox.batchmyfile.converter;
 
 import org.nitrox.batchmyfile.exception.ConversionFromLayoutException;
 import org.nitrox.batchmyfile.file.FilePartType;
 import org.nitrox.batchmyfile.file.StructuredProcessedLine;
 import org.nitrox.batchmyfile.layout.Layout;
-import org.nitrox.batchmyfile.layout.LayoutField;
-import org.nitrox.batchmyfile.layout.LayoutPart;
+import org.nitrox.batchmyfile.layout.annotation.LayoutField;
+import org.nitrox.batchmyfile.layout.annotation.LayoutPart;
 import org.nitrox.batchmyfile.util.ReflectionUtil;
 
 import java.lang.reflect.Field;
@@ -18,9 +18,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class FileValueConversor {
+public class FileValueConverter {
 
-    private static Logger LOGGER = Logger.getLogger(FileValueConversor.class.getName());
+    private static Logger LOGGER = Logger.getLogger(FileValueConverter.class.getName());
 
 
     public ConvertedFileValue convert(ConvertedFileValue convertedFileValue, Layout layout, Map<FilePartType, List<StructuredProcessedLine>> structuredFile) {

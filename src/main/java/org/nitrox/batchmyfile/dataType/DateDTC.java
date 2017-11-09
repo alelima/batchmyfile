@@ -5,20 +5,29 @@
  */
 package org.nitrox.batchmyfile.dataType;
 
+import java.util.Date;
+import org.nitrox.batchmyfile.util.DateUtil;
+
 /**
  *
  * @author Alessandro Lima
  */
-public class IntegerDT implements DataType{
+public class DateDTC implements DataTypeConverter {
+
+    private String datePattern = "yyyyMMdd";
+    
+    public DateDTC(String datePattern) {
+        this.datePattern = datePattern;
+    }
 
     @Override
     public Object toObject(String value) {
-        return new Integer(value);
+        return DateUtil.toDate(value, datePattern);
     }
 
     @Override
     public String toString(Object value) {
-        return value.toString();
+        return DateUtil.toString((Date) value, datePattern);
     }
 
 }

@@ -5,31 +5,59 @@
  */
 package org.nitrox.batchmyfile.layout;
 
-import org.nitrox.batchmyfile.dataType.DataType;
+import org.nitrox.batchmyfile.dataType.DataTypeConverter;
 import org.nitrox.batchmyfile.file.FilePartType;
 
 /**
- *
+ * This class representing a field of a positional file.
  * @author Alessandro Lima
  */
 public class Field {
 
+    /**
+     * The value of all positions occupied by this field in positional file.
+     */
     private int size;
 
+    /**
+     * The name of field in your layout specification
+     */
     private String name;
 
-    private DataType dataType;
+    /**
+     * The specific converter for the data type wanted
+     */
+    private DataTypeConverter dataTypeConverter;
 
+    /**
+     * The part of file which this field belongs
+     */
     private FilePartType filePartTipe;
-    
+
+    /**
+     * Representing if value representation of this field is in file is obligatory or not.
+     */
     private boolean obligatory;
 
+    /**
+     * Representing if this field is a part file descriptor.
+     */
     private boolean partFileDescriptor = false;
 
-    public Field(int size, String name, DataType dataType, FilePartType filePartTipe, boolean obligatory) {
+    /**
+     * Constructor of LayoutField class.
+     * I recommend using instead of this constructor the LayoutFieldBuilder.
+     *
+     * @param size
+     * @param name
+     * @param dataTypeConverter
+     * @param filePartTipe
+     * @param obligatory
+     */
+    public Field(int size, String name, DataTypeConverter dataTypeConverter, FilePartType filePartTipe, boolean obligatory) {
         this.size = size;
         this.name = name;
-        this.dataType = dataType;
+        this.dataTypeConverter = dataTypeConverter;
         this.filePartTipe = filePartTipe;
         this.obligatory = obligatory;
     }
@@ -42,8 +70,8 @@ public class Field {
         return name;
     }
 
-    public DataType getDataType() {
-        return dataType;
+    public DataTypeConverter getDataTypeConverter() {
+        return dataTypeConverter;
     }
 
     public FilePartType getFilePartTipe() {

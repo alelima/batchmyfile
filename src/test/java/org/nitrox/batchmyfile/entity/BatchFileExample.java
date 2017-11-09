@@ -1,9 +1,7 @@
 package org.nitrox.batchmyfile.entity;
 
-import org.nitrox.batchmyfile.conversor.FileValueConversor;
+import org.nitrox.batchmyfile.converter.FileValueConverter;
 import org.nitrox.batchmyfile.file.FileProcessor;
-
-import java.io.File;
 
 public class BatchFileExample {
 
@@ -12,7 +10,7 @@ public class BatchFileExample {
         BankPaymentTestLayout bankLayout = new BankPaymentTestLayout();
 
         FileProcessor fileProcessor = new FileProcessor();
-        FileValueConversor conversor = new FileValueConversor();
+        FileValueConverter conversor = new FileValueConverter();
         //File file = new File();
 
         //BankDayPaymentsVO bankVO2 = conversor.convert(bankVO, fileProcessor.process(file, bankLayout));

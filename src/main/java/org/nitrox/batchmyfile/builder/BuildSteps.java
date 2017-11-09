@@ -1,9 +1,8 @@
 package org.nitrox.batchmyfile.builder;
 
-import org.nitrox.batchmyfile.dataType.DataType;
+import org.nitrox.batchmyfile.dataType.DataTypeConverter;
 import org.nitrox.batchmyfile.file.FilePartType;
 import org.nitrox.batchmyfile.layout.Field;
-import org.nitrox.batchmyfile.layout.Layout;
 
 public class BuildSteps implements LayoutFieldBuilder.NameStep, LayoutFieldBuilder.SizeStep,
         LayoutFieldBuilder.DataTypeStep, LayoutFieldBuilder.FilePartTypeStep,
@@ -13,7 +12,7 @@ public class BuildSteps implements LayoutFieldBuilder.NameStep, LayoutFieldBuild
 
     private String name;
 
-    private DataType dataType;
+    private DataTypeConverter dataTypeConverter;
 
     private FilePartType filePartType;
 
@@ -32,8 +31,8 @@ public class BuildSteps implements LayoutFieldBuilder.NameStep, LayoutFieldBuild
     }
 
     @Override
-    public LayoutFieldBuilder.FilePartTypeStep dataType(DataType dataType) {
-        this.dataType = dataType;
+    public LayoutFieldBuilder.FilePartTypeStep dataType(DataTypeConverter dataTypeConverter) {
+        this.dataTypeConverter = dataTypeConverter;
         return this;
     }
 
@@ -51,7 +50,7 @@ public class BuildSteps implements LayoutFieldBuilder.NameStep, LayoutFieldBuild
 
     @Override
     public Field build() {
-        Field layoutField = new Field(size, name, dataType, filePartType, obligatory);
+        Field layoutField = new Field(size, name, dataTypeConverter, filePartType, obligatory);
         return layoutField;
     }
 }

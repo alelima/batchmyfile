@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.nitrox.batchmyfile.layout;
+package org.nitrox.batchmyfile.dataType;
 
 /**
  *
  * @author Alessandro Lima
  */
-public enum FieldType {
-    INTERGER,
-    DECIMAL,
-    DATE,
-    HOUR,
-    ALFANUMERIC,
-    ENUMERATION;
+public interface DataTypeConverter {
+    public Object toObject(String value);
+    
+    public String toString(Object value);
 }

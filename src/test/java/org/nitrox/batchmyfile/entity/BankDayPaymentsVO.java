@@ -1,8 +1,8 @@
 package org.nitrox.batchmyfile.entity;
 
-import org.nitrox.batchmyfile.conversor.ConvertedFileValue;
-import org.nitrox.batchmyfile.layout.LayoutField;
-import org.nitrox.batchmyfile.layout.LayoutPart;
+import org.nitrox.batchmyfile.converter.ConvertedFileValue;
+import org.nitrox.batchmyfile.layout.annotation.LayoutField;
+import org.nitrox.batchmyfile.layout.annotation.LayoutPart;
 
 import java.util.ArrayList;
 import java.util.Date;

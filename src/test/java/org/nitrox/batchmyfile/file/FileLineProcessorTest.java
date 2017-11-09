@@ -9,7 +9,7 @@ package org.nitrox.batchmyfile.file;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.nitrox.batchmyfile.dataType.AlfaNumericDT;
+import org.nitrox.batchmyfile.dataType.AlfaNumericDTC;
 import org.nitrox.batchmyfile.entity.BankPaymentTestLayout;
 import org.nitrox.batchmyfile.entity.MyFilePartDescriptor;
 import org.nitrox.batchmyfile.exception.ProcessPositionalFileException;
@@ -18,7 +18,6 @@ import org.nitrox.batchmyfile.layout.Field;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +43,7 @@ public class FileLineProcessorTest {
         BankPaymentTestLayout bankLayout = new BankPaymentTestLayout();
 
         Field partFileFieldDescriptor = new Field(
-                1, "pftd", new AlfaNumericDT(), MyFilePartDescriptor.PART_DESCRIPTOR, true
+                1, "pftd", new AlfaNumericDTC(), MyFilePartDescriptor.PART_DESCRIPTOR, true
         );
         FileLineProcessor fileLineProcessor = new FileLineProcessor(line, 1L);
 
@@ -70,7 +69,7 @@ public class FileLineProcessorTest {
         BankPaymentTestLayout bankLayout = new BankPaymentTestLayout();
 
         Field partFileFieldDescriptor = new Field(
-                1, "pftd", new AlfaNumericDT(), MyFilePartDescriptor.PART_DESCRIPTOR, true
+                1, "pftd", new AlfaNumericDTC(), MyFilePartDescriptor.PART_DESCRIPTOR, true
         );
         FileLineProcessor fileLineProcessor = new FileLineProcessor(line, 1L);
 
@@ -93,7 +92,7 @@ public class FileLineProcessorTest {
         BankPaymentTestLayout bankLayout = new BankPaymentTestLayout();
 
         Field partFileFieldDescriptor = new Field(
-                1, "pftd", new AlfaNumericDT(), MyFilePartDescriptor.PART_DESCRIPTOR, true
+                1, "pftd", new AlfaNumericDTC(), MyFilePartDescriptor.PART_DESCRIPTOR, true
         );
         FileLineProcessor fileLineProcessor = new FileLineProcessor(line, 1L);
 

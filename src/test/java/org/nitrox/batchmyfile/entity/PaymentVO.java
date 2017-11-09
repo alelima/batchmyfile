@@ -1,7 +1,7 @@
 package org.nitrox.batchmyfile.entity;
 
-import org.nitrox.batchmyfile.conversor.ConvertedFileValue;
-import org.nitrox.batchmyfile.layout.LayoutField;
+import org.nitrox.batchmyfile.converter.ConvertedFileValue;
+import org.nitrox.batchmyfile.layout.annotation.LayoutField;
 
 import java.time.LocalTime;
 import java.util.Date;

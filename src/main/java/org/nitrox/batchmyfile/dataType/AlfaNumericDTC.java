@@ -5,29 +5,23 @@
  */
 package org.nitrox.batchmyfile.dataType;
 
-import java.util.Date;
-import org.nitrox.batchmyfile.util.DateUtil;
-
 /**
  *
  * @author Alessandro Lima
  */
-public class DateDT implements DataType {
-
-    private String datePattern = "yyyyMMdd";
-    
-    public DateDT(String datePattern) {
-        this.datePattern = datePattern;
-    }
+public class AlfaNumericDTC implements DataTypeConverter {
 
     @Override
     public Object toObject(String value) {
-        return DateUtil.toDate(value, datePattern);
+        return value;
     }
 
     @Override
     public String toString(Object value) {
-        return DateUtil.toString((Date) value, datePattern);
+        String stringValue = (String) value;
+        stringValue = (stringValue == null ? "" : stringValue);
+        stringValue = String.format("%-" + stringValue.length() + "s", stringValue);
+        return stringValue;
     }
 
 }

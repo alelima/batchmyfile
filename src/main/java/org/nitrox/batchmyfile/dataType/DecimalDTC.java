@@ -9,26 +9,26 @@ package org.nitrox.batchmyfile.dataType;
  *
  * @author Alessandro Lima
  */
-public class DecimalDT implements DataType {
+public class DecimalDTC implements DataTypeConverter {
     
     private int numberOfDecimalPlaces = 2;
     
     private boolean useSeparatorInPrint = false;
 
-    public DecimalDT(int numberOfDecimalPlaces) {
+    public DecimalDTC(int numberOfDecimalPlaces) {
         this.numberOfDecimalPlaces = numberOfDecimalPlaces;
     }
     
-    public DecimalDT(boolean useSeparatorInPrint) {
+    public DecimalDTC(boolean useSeparatorInPrint) {
         this.useSeparatorInPrint = useSeparatorInPrint;
     }
     
-    public DecimalDT(int numberOfDecimalPlaces, boolean useSeparatorInPrint) {
+    public DecimalDTC(int numberOfDecimalPlaces, boolean useSeparatorInPrint) {
         this.numberOfDecimalPlaces = numberOfDecimalPlaces;
         this.useSeparatorInPrint = useSeparatorInPrint;
     }
     
-    public DecimalDT() {
+    public DecimalDTC() {
         //
     }
     

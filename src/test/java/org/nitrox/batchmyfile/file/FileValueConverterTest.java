@@ -1,11 +1,9 @@
 package org.nitrox.batchmyfile.file;
 
-import javafx.util.converter.LocalTimeStringConverter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.nitrox.batchmyfile.conversor.ConvertedFileValue;
-import org.nitrox.batchmyfile.conversor.FileValueConversor;
+import org.nitrox.batchmyfile.converter.FileValueConverter;
 import org.nitrox.batchmyfile.entity.BankDayPaymentsVO;
 import org.nitrox.batchmyfile.entity.BankPaymentTestLayout;
 import org.nitrox.batchmyfile.entity.MyFilePartDescriptor;
@@ -20,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Tag("LineProcessor")
 @DisplayName("Testing the Conversor ")
-public class FileValueConversorTest {
+public class FileValueConverterTest {
 
     @Test
     public void testGenericListType() throws NoSuchFieldException {
@@ -36,7 +34,7 @@ public class FileValueConversorTest {
 
         BankDayPaymentsVO bankVO = new BankDayPaymentsVO();
         BankPaymentTestLayout bankLayout = new BankPaymentTestLayout();
-        FileValueConversor conversor = new FileValueConversor();
+        FileValueConverter conversor = new FileValueConverter();
 
         Map<String, Object> headerLine = new HashMap<>();
         headerLine.put("dateCreation", new Integer(5));

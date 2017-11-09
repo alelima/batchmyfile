@@ -1,7 +1,7 @@
 package org.nitrox.batchmyfile;
 
-import org.nitrox.batchmyfile.conversor.ConvertedFileValue;
-import org.nitrox.batchmyfile.conversor.FileValueConversor;
+import org.nitrox.batchmyfile.converter.ConvertedFileValue;
+import org.nitrox.batchmyfile.converter.FileValueConverter;
 import org.nitrox.batchmyfile.file.FilePartType;
 import org.nitrox.batchmyfile.file.FileProcessor;
 import org.nitrox.batchmyfile.file.StructuredProcessedLine;
@@ -19,7 +19,7 @@ public class BatchMyFile {
 
     private ConvertedFileValue cfv;
 
-    public BatchMyFile withFile(File file) {
+    public BatchMyFile ofFile(File file) {
         this.file = file;
         return this;
     }
@@ -39,7 +39,7 @@ public class BatchMyFile {
         Map<FilePartType, List<StructuredProcessedLine>> structuredFile =
                 fileProcessor.process(this.file, this.layout);
 
-        FileValueConversor fileConversor = new FileValueConversor();
+        FileValueConverter fileConversor = new FileValueConverter();
         return fileConversor.convert(this.cfv, this.layout, structuredFile);
     }
 }

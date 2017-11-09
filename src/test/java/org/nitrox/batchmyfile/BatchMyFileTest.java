@@ -16,7 +16,7 @@ class BatchMyFileTest {
         BankDayPaymentsVO bankVO = (BankDayPaymentsVO) new BatchMyFile().
                 forThis(new BankDayPaymentsVO()).
                 withLayout(new BankPaymentTestLayout()).
-                ofFile(new File("/home/03883182443/desenv/teste-bmf.txt")).
+                ofFile(new File("")).
                 process();
 
         assertEquals(new Integer(4), bankVO.getNumberOfPayments());
